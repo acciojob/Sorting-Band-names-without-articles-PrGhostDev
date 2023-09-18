@@ -1,24 +1,24 @@
-//your code here
-let bandNames = ['The Rolling Stones', 'Led Zeppelin', 'Pink Floyd', 'The Beatles', 'Aerosmith'];
+	//your code here
+	document.addEventListener('DOMContentLoaded', function () {
+  const bandNames = ['The Virupaksha Temple', 'Victoria Memorial', 'Tajmahal'];
+  const articles = ['a', 'an', 'the'];
 
-function sortBandNames(names) {
+  function removeArticles(name) {
+    const words = name.split(' ');
+    const filteredWords = words.filter(word => !articles.includes(word.toLowerCase()));
+    return filteredWords.join(' ');
+  }
+  const sortedBandNames = bandNames.slice().sort((a, b) => {
+    const nameA = removeArticles(a);
+    const nameB = removeArticles(b);
+    return nameA.localeCompare(nameB);
+  });
 
-  const articleRegex = /^(a|an|the)\s+/i;
+  const ul = document.getElementById('bands');
 
-  const sortedNames = names.map((name) => name.replace(articleRegex, ''));
-
-  sortedNames.sort((a, b) => a.localeCompare(b));
-
-  return sortedNames;
-}
-
-const ulElement = document.getElementById('bands');
-
-const sortedBandNames = sortBandNames(bandNames);
-
-sortedBandNames.forEach((name) => {
-  const liElement = document.createElement('li');
-  liElement.textContent = name;
-  ulElement.appendChild(liElement);
+  sortedBandNames.forEach(name => {
+    const li = document.createElement('li');
+    li.textContent = name;
+    ul.appendChild(li);
+  });
 });
-
