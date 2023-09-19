@@ -1,32 +1,28 @@
 //your code here	
-document.addEventListener("DOMContentLoaded", function () {
-  const bands = [
-    "The Beatles",
-    "The Rolling Stones",
-    "Led Zeppelin",
-    "Aerosmith",
-    "Nirvana",
-    "Red Hot Chili Peppers",
-    "The Who",
-  ];
+function removeArticles(bandName) {
+  return bandName.replace(/^(a |an |the )/i, "").trim();
+}
 
-  function stripArticles(bandName) {
-	  return bandName.replace(/^(a|an|the)\s+/i, "").trim();
-  }
+const bandList = document.getElementById("band");
 
-  const sortedBands = bands.slice().sort((a, b) => {
-    const bandA = stripArticles(a);
-    const bandB = stripArticles(b);
-    return bandA.localeCompare(bandB);
-  });
+const bandNames = [
+  "The Beatles",
+  "Aerosmith",
+  "Nirvana",
+  "Led Zeppelin",
+  "The Rolling Stones",
+  "Red Hot Chili Peppers",
+  "Pink Floyd",
+];
 
-  const ulElement = document.getElementById("bands");
+const sortedBandNames = bandNames.slice().sort((a, b) => {
+  const nameA = removeArticles(a).toLowerCase();
+  const nameB = removeArticles(b).toLowerCase();
+  return nameA.localeCompare(nameB);
+});
 
-  ulElement.innerHTML = "";
-
-  sortedBands.forEach((band) => {
-    const liElement = document.createElement("li");
-    liElement.textContent = band;
-    ulElement.appendChild(liElement);
-  });
+sortedBandNames.forEach((bandName) => {
+  const li = document.createElement("li");
+  li.textContent = bandName;
+  bandList.appendChild(li);
 });
