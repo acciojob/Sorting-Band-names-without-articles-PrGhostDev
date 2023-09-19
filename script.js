@@ -1,24 +1,24 @@
-	//your code here
-	document.addEventListener('DOMContentLoaded', function () {
-  const bandNames = ['The Virupaksha Temple', 'Victoria Memorial', 'Tajmahal'];
-  const articles = ['a', 'an', 'the'];
+// Array of band names
+let bandNames = [
+  'The Rolling Stones',
+  'Led Zeppelin',
+  'Aerosmith',
+  'The Beatles',
+  'The Who',
+  'Queen',
+  'Nirvana'
+];
 
-  function removeArticles(name) {
-    const words = name.split(' ');
-    const filteredWords = words.filter(word => !articles.includes(word.toLowerCase()));
-    return filteredWords.join(' ');
-  }
-  const sortedBandNames = bandNames.slice().sort((a, b) => {
-    const nameA = removeArticles(a);
-    const nameB = removeArticles(b);
-    return nameA.localeCompare(nameB);
-  });
+function removeArticles(name) {
+  return name.replace(/^(a |an |the )/i, '').trim();
+}
 
-  const ul = document.getElementById('bands');
+bandNames.sort((a, b) => removeArticles(a).localeCompare(removeArticles(b)));
 
-  sortedBandNames.forEach(name => {
-    const li = document.createElement('li');
-    li.textContent = name;
-    ul.appendChild(li);
-  });
+const ulElement = document.querySelector('#bands');
+
+bandNames.forEach((bandName) => {
+  const liElement = document.createElement('li');
+  liElement.textContent = bandName;
+  ulElement.appendChild(liElement);
 });
